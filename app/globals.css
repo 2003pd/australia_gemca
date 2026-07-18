@@ -1,26 +1,392 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fafafa;
+  --foreground: #1a2b49;
+  --font-space-grotesk: 'Space Grotesk', sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.dark {
+  --background: #0A1F44;
+  --foreground: #ffffff;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@theme {
+  --font-space-grotesk: var(--font-space-grotesk);
 }
 
 body {
-  background: var(--background);
   color: var(--foreground);
+  background-color: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+html {
+  scroll-behavior: smooth;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+img,
+video,
+canvas,
+svg {
+  max-width: 100%;
+}
+
+main,
+section,
+article,
+aside,
+header,
+footer,
+nav,
+div {
+  min-width: 0;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Hide Next.js dev indicators and static route overlays from screen */
+nextjs-portal {
+  display: none !important;
+}
+
+.about-hero-3d {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  perspective: 1100px;
+  transform-style: preserve-3d;
+  animation: about-float 7s ease-in-out infinite;
+}
+
+.about-hero-crystal {
+  position: absolute;
+  inset: 72px;
+  transform-style: preserve-3d;
+  animation: about-crystal-spin 14s linear infinite;
+}
+
+.about-hero-face {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(212, 175, 55, 0.42);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.03)),
+    rgba(10, 31, 68, 0.5);
+  box-shadow: inset 0 0 34px rgba(111, 159, 220, 0.24), 0 24px 80px rgba(0, 0, 0, 0.45);
+  color: rgba(255, 255, 255, 0.9);
+  font-family: var(--font-space-grotesk);
+  font-size: 96px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.about-hero-face-front {
+  transform: translateZ(78px);
+}
+
+.about-hero-face-back {
+  transform: rotateY(180deg) translateZ(78px);
+}
+
+.about-hero-face-left {
+  transform: rotateY(-90deg) translateZ(78px);
+}
+
+.about-hero-face-right {
+  transform: rotateY(90deg) translateZ(78px);
+}
+
+.about-hero-face-top {
+  transform: rotateX(90deg) translateZ(78px);
+}
+
+.about-hero-face-bottom {
+  transform: rotateX(-90deg) translateZ(78px);
+}
+
+.about-hero-ring {
+  position: absolute;
+  inset: 20px;
+  border: 1px solid rgba(212, 175, 55, 0.28);
+  border-radius: 50%;
+  transform-style: preserve-3d;
+}
+
+.about-hero-ring-one {
+  animation: about-ring-one 12s linear infinite;
+}
+
+.about-hero-ring-two {
+  inset: 50px;
+  border-color: rgba(111, 159, 220, 0.28);
+  animation: about-ring-two 10s linear infinite;
+}
+
+[data-about-card] {
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+}
+
+[data-about-reveal] {
+  will-change: transform, opacity;
+}
+
+.company-glow {
+  background:
+    radial-gradient(
+      420px circle at var(--company-x, 50%) var(--company-y, 20%),
+      rgba(212, 175, 55, 0.18),
+      rgba(111, 159, 220, 0.08) 35%,
+      transparent 68%
+    );
+}
+
+.company-panel {
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+}
+
+.company-timeline-fill {
+  transform: scaleY(0);
+}
+
+[data-visa-card] {
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+}
+
+[data-visa-reveal] {
+  will-change: transform, opacity;
+}
+
+.visa-orbit-ring,
+.visa-orbit-ring-alt,
+.visa-float-card {
+  will-change: transform;
+}
+
+.visa-glass-card,
+.visa-magnetic-btn {
+  position: relative;
+  transform-style: preserve-3d;
+  will-change: transform, opacity, filter;
+}
+
+.visa-glass-card::before,
+.visa-magnetic-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.38), transparent 34%, rgba(201, 162, 39, 0.12));
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+
+.visa-glass-card:hover::before,
+.visa-magnetic-btn:hover::before {
+  opacity: 1;
+}
+
+.visa-cta-panel::after {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
+  transform: translateX(-55%) rotate(12deg);
+  animation: visa-cta-shine 4.5s ease-in-out infinite;
+}
+
+.service-mouse-light {
+  background:
+    radial-gradient(
+      520px circle at var(--service-x, 50%) var(--service-y, 20%),
+      rgba(201, 162, 39, 0.16),
+      rgba(46, 95, 163, 0.08) 36%,
+      transparent 70%
+    );
+}
+
+.service-premium-card,
+.service-cta-button {
+  --card-x: 50;
+  --card-y: 0;
+  transform-style: preserve-3d;
+  will-change: transform, opacity, filter;
+}
+
+.service-premium-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(201, 162, 39, 0.8),
+    rgba(255, 255, 255, 0.05),
+    rgba(46, 95, 163, 0.35),
+    rgba(201, 162, 39, 0.75)
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 260ms ease;
+  pointer-events: none;
+}
+
+.service-premium-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(
+      360px circle at calc(var(--card-x) * 1%) calc(var(--card-y) * 1%),
+      rgba(201, 162, 39, 0.22),
+      transparent 55%
+    ),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.42), transparent 34%);
+  opacity: 0;
+  transition: opacity 220ms ease;
+  pointer-events: none;
+}
+
+.service-premium-card:hover::before,
+.service-premium-card:hover::after {
+  opacity: 1;
+}
+
+.service-icon-wrap {
+  box-shadow: inset 0 0 24px rgba(201, 162, 39, 0.12), 0 18px 50px rgba(201, 162, 39, 0.12);
+}
+
+.group:hover .app-category-icon {
+  animation: app-category-icon-bounce 680ms ease both;
+}
+
+@keyframes visa-cta-shine {
+  0% {
+    transform: translateX(-55%) rotate(12deg);
+  }
+  48%,
+  100% {
+    transform: translateX(55%) rotate(12deg);
+  }
+}
+
+@keyframes app-category-icon-bounce {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  38% {
+    transform: translate3d(0, -5px, 0) scale(1.05);
+  }
+  68% {
+    transform: translate3d(0, 1px, 0) scale(0.98);
+  }
+}
+
+@keyframes about-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-18px, 22px, 0);
+  }
+}
+
+@keyframes about-crystal-spin {
+  from {
+    transform: rotateX(-16deg) rotateY(0deg) rotateZ(8deg);
+  }
+  to {
+    transform: rotateX(-16deg) rotateY(360deg) rotateZ(8deg);
+  }
+}
+
+@keyframes about-ring-one {
+  from {
+    transform: rotateX(68deg) rotateZ(0deg);
+  }
+  to {
+    transform: rotateX(68deg) rotateZ(360deg);
+  }
+}
+
+@keyframes about-ring-two {
+  from {
+    transform: rotateY(70deg) rotateZ(360deg);
+  }
+  to {
+    transform: rotateY(70deg) rotateZ(0deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-hero-3d,
+  .about-hero-crystal,
+  .about-hero-ring-one,
+  .about-hero-ring-two,
+  [data-about-card],
+  [data-about-reveal],
+  .company-panel,
+  .company-orbit,
+  .company-timeline-fill,
+  [data-visa-card],
+  [data-visa-reveal],
+  .visa-orbit-ring,
+  .visa-orbit-ring-alt,
+  .visa-float-card,
+  .visa-glass-card,
+  .visa-magnetic-btn,
+  .visa-cta-panel::after {
+    animation: none;
+    transform: none !important;
+  }
+
+  .service-particle,
+  .service-line,
+  .service-premium-card,
+  .service-cta-glow,
+  .service-cta-button,
+  .app-category-icon {
+    animation: none !important;
+    transform: none !important;
+  }
 }

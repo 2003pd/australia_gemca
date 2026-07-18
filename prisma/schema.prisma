@@ -1,0 +1,191 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model VisaCategory {
+  id           String  @id @default(cuid())
+  name         String  @unique
+  slug         String  @unique
+  description  String  @db.Text
+  icon         String // e.g. "GraduationCap", "Heart", "Briefcase"
+  banner       String? // Banner Image URL
+  displayOrder Int     @default(0)
+  status       String  @default("Active") // Active, Inactive
+
+  // SEO
+  seoTitle       String?
+  seoDescription String?
+  seoKeywords    String?
+
+  visas Visa[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("visa_categories")
+}
+
+model Visa {
+  id         String       @id @default(cuid())
+  name       String
+  subclass   String       @unique // e.g. "500", "189"
+  slug       String       @unique // e.g. "student-visa-500", "skilled-independent-189"
+  categoryId String
+  category   VisaCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  status     String       @default("Published") // Draft, Published, Archived
+  heroImage  String?
+  summary    String       @db.Text
+
+  // Quick Facts
+  whoCanApply    String   @db.Text
+  stay           String
+  travel         String
+  work           String // Work rights text
+  study          String // Study rights text
+  baseCost       Decimal  @db.Decimal(10, 2)
+  additionalCost String?  @db.Text
+  effectiveDate  DateTime
+
+  // Processing overrides (if custom)
+  processingP50 String?
+  processingP90 String?
+  verifiedDate  DateTime @default(now())
+
+  // Related lists
+  streams       VisaStream[]
+  eligibilities VisaEligibility[]
+  documents     VisaDocument[]
+  steps         VisaStep[]
+  faqs          VisaFaq[]
+
+  // Self-referential Visa Relations (Join Table)
+  relationsFrom VisaRelation[] @relation("VisaFrom")
+  relationsTo   VisaRelation[] @relation("VisaTo")
+
+  // SEO
+  seoTitle       String?
+  seoDescription String?
+  seoKeywords    String?
+  seoOgImage     String?
+  seoCanonical   String?
+  reviewedBy     String? // Expert Reviewer Name
+
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+
+  // Versioned items
+  fees            VisaFee[]
+  processingTimes VisaProcessingTime[]
+
+  @@map("visas")
+}
+
+model VisaStream {
+  id       String @id @default(cuid())
+  visaId   String
+  visa     Visa   @relation(fields: [visaId], references: [id], onDelete: Cascade)
+  name     String
+  criteria String @db.Text
+  summary  String @db.Text
+
+  @@map("visa_streams")
+}
+
+model VisaEligibility {
+  id          String  @id @default(cuid())
+  visaId      String
+  visa        Visa    @relation(fields: [visaId], references: [id], onDelete: Cascade)
+  title       String // e.g. "Age", "English", "Sponsor", "Financial"
+  description String  @db.Text
+  detailUrl   String? // Custom guide url
+
+  @@map("visa_eligibility")
+}
+
+model VisaDocument {
+  id          String  @id @default(cuid())
+  visaId      String
+  visa        Visa    @relation(fields: [visaId], references: [id], onDelete: Cascade)
+  name        String // e.g. "Passport Bio-page", "IELTS Certificate"
+  category    String // Identity, English, Financial, Academic, Employment, etc.
+  description String  @db.Text
+  required    Boolean @default(true)
+
+  @@map("visa_documents")
+}
+
+model VisaStep {
+  id          String @id @default(cuid())
+  visaId      String
+  visa        Visa   @relation(fields: [visaId], references: [id], onDelete: Cascade)
+  stepNumber  Int
+  title       String
+  description String @db.Text
+
+  @@map("visa_steps")
+}
+
+model VisaFaq {
+  id       String @id @default(cuid())
+  visaId   String
+  visa     Visa   @relation(fields: [visaId], references: [id], onDelete: Cascade)
+  question String @db.Text
+  answer   String @db.Text
+
+  @@map("visa_faqs")
+}
+
+model VisaRelation {
+  id            String @id @default(cuid())
+  visaId        String
+  visa          Visa   @relation("VisaFrom", fields: [visaId], references: [id], onDelete: Cascade)
+  relatedVisaId String
+  relatedVisa   Visa   @relation("VisaTo", fields: [relatedVisaId], references: [id], onDelete: Cascade)
+
+  @@unique([visaId, relatedVisaId])
+  @@map("visa_relations")
+}
+
+model VisaFee {
+  id            String   @id @default(cuid())
+  visaId        String
+  visa          Visa     @relation(fields: [visaId], references: [id], onDelete: Cascade)
+  applicantType String // Base, Additional Adult, Additional Child
+  amount        Decimal  @db.Decimal(10, 2)
+  effectiveDate DateTime
+  source        String? // Department of Home Affairs
+  verifiedDate  DateTime @default(now())
+
+  @@map("visa_fees")
+}
+
+model VisaProcessingTime {
+  id           String   @id @default(cuid())
+  visaId       String
+  visa         Visa     @relation(fields: [visaId], references: [id], onDelete: Cascade)
+  p50          String // E.g. "4 months"
+  p90          String // E.g. "6 months"
+  source       String? // Department of Home Affairs
+  verifiedDate DateTime @default(now())
+
+  @@map("visa_processing_times")
+}
+
+model Lead {
+  id           String   @id @default(cuid())
+  name         String
+  email        String
+  phone        String
+  visaSubclass String? // Subclass client is interested in
+  message      String   @db.Text
+  status       String   @default("New") // New, Contacted, In Progress, Closed
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("leads")
+}
