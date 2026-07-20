@@ -161,7 +161,7 @@ export default function AboutPage() {
       <SiteHeader />
       <AboutMotion />
 
-      <section data-about-hero className="relative min-h-[88vh] overflow-hidden bg-[#101010] text-white">
+      <section data-about-hero className="relative min-h-screen overflow-hidden bg-[#101010] text-white lg:min-h-[88vh]">
         <Image
           src="/premium-hero-bg.png"
           alt="GEMCA premium migration consultation setting"
@@ -171,7 +171,7 @@ export default function AboutPage() {
           sizes="100vw"
         />
         <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:44px_44px]" />
-        <div className="pointer-events-none absolute right-[-80px] top-24 hidden h-[480px] w-[480px] items-center justify-center opacity-90 lg:flex">
+        <div className="pointer-events-none absolute bottom-8 right-[-82px] flex h-[210px] w-[210px] scale-[0.72] items-center justify-center opacity-40 sm:right-[-70px] sm:h-[220px] sm:w-[220px] sm:scale-100 sm:opacity-45 lg:right-[-80px] lg:top-24 lg:h-[480px] lg:w-[480px] lg:opacity-90">
           <div className="about-hero-3d">
             <div className="about-hero-ring about-hero-ring-one" />
             <div className="about-hero-ring about-hero-ring-two" />
@@ -185,24 +185,24 @@ export default function AboutPage() {
             </div>
           </div>
         </div>
-        <div className="relative mx-auto flex min-h-[88vh] max-w-7xl items-end px-6 pb-20 pt-32 lg:px-8">
+        <div className="relative mx-auto flex min-h-screen max-w-7xl items-end px-5 pb-12 pt-32 sm:px-6 sm:pb-16 lg:min-h-[88vh] lg:px-8 lg:pb-20">
           <div className="max-w-4xl" data-about-reveal>
             <SectionLabel>About GEMCA</SectionLabel>
-            <h1 className="max-w-3xl font-serif text-3xl font-semibold italic leading-tight tracking-normal md:text-5xl lg:text-6xl">
+            <h1 className="max-w-3xl font-serif text-[clamp(2.35rem,11vw,3.6rem)] font-semibold italic leading-[1.04] tracking-normal sm:text-5xl lg:text-6xl">
               Migration guidance with precision and care
             </h1>
-            <p className="mt-8 max-w-2xl text-lg leading-8 text-white/75">
+            <p className="mt-6 max-w-2xl text-base leading-7 text-white/75 sm:mt-8 sm:text-lg sm:leading-8">
               GEMCA Migration and GEMCA Education help students, professionals, partners, and families understand
               Australian pathways through free knowledge and premium personal guidance.
             </p>
-            <div className="mt-10 grid max-w-3xl gap-3 text-sm font-bold uppercase tracking-[0.16em] text-white/75 sm:grid-cols-3">
-              <div className="border border-white/15 bg-white/10 p-4" data-about-card>
+            <div className="mt-8 grid max-w-3xl grid-cols-1 gap-3 text-xs font-bold uppercase tracking-[0.12em] text-white/75 sm:mt-10 sm:grid-cols-3 sm:text-sm sm:tracking-[0.16em]">
+              <div className="border border-white/15 bg-white/10 p-3 backdrop-blur-sm sm:p-4" data-about-card>
                 <span data-about-count data-about-target="5">5</span> years industry experience
               </div>
-              <div className="border border-white/15 bg-white/10 p-4" data-about-card>
+              <div className="border border-white/15 bg-white/10 p-3 backdrop-blur-sm sm:p-4" data-about-card>
                 <span data-about-count data-about-target="10" data-about-suffix="+">10+</span> client nationalities
               </div>
-              <div className="border border-white/15 bg-white/10 p-4" data-about-card>Williams Landing office</div>
+              <div className="border border-white/15 bg-white/10 p-3 backdrop-blur-sm sm:p-4" data-about-card>Williams Landing office</div>
             </div>
           </div>
         </div>

@@ -43,6 +43,27 @@ svg {
   max-width: 100%;
 }
 
+a,
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+a,
+button {
+  overflow-wrap: anywhere;
+}
+
 main,
 section,
 article,

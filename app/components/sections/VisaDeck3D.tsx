@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 
 interface VisaCard {
@@ -78,9 +78,20 @@ const visas: VisaCard[] = [
 export default function VisaDeck3D() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [sectionHovered, setSectionHovered] = useState(false);
+  const [isDesktopDeck, setIsDesktopDeck] = useState(false);
+
+  useEffect(() => {
+    const query = window.matchMedia("(min-width: 1024px)");
+    const update = () => setIsDesktopDeck(query.matches);
+
+    update();
+    query.addEventListener("change", update);
+
+    return () => query.removeEventListener("change", update);
+  }, []);
 
   return (
-    <section className="relative w-full py-16 bg-[#050b14] overflow-hidden">
+    <section className="relative w-full overflow-hidden bg-[#050b14] py-16 lg:py-16">
       
       {/* Abstract Grid Pattern */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none z-0" />
@@ -89,34 +100,34 @@ export default function VisaDeck3D() {
       <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#2E5FA3]/5 rounded-full blur-[160px] pointer-events-none z-0" />
 
       {/* Giant Background Word Outline */}
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[85%] md:-translate-y-[80%] pointer-events-none select-none uppercase z-0 w-full text-center">
-        <h2 className="text-[14vw] font-black tracking-tighter text-white/50 select-none leading-none" style={{ fontFamily: "var(--font-space-grotesk)" }}>
+      <div className="pointer-events-none absolute left-1/2 top-1/2 z-0 w-full -translate-x-1/2 -translate-y-[62%] select-none text-center uppercase sm:-translate-y-[70%] lg:-translate-y-[80%]">
+        <h2 className="select-none text-[22vw] font-black leading-none tracking-normal text-white/10 sm:text-[18vw] lg:text-[14vw] lg:text-white/50 lg:tracking-tighter" style={{ fontFamily: "var(--font-space-grotesk)" }}>
           GEMCA
         </h2>
       </div>
 
-      <div className="container mx-auto px-6 lg:px-8 max-w-7xl relative z-10">
+      <div className="container relative z-10 mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
         
         {/* Title */}
-        <div className="text-center mb-16">
-          <h4 className="text-[#d4af37] font-bold tracking-widest text-sm uppercase mb-3 flex items-center justify-center gap-2">
-            <div className="w-8 h-[1px] bg-[#d4af37]"></div>
+        <div className="mb-10 text-center sm:mb-14 lg:mb-16">
+          <h4 className="mb-3 flex items-center justify-center gap-2 text-sm font-bold uppercase tracking-widest text-[#d4af37]">
+            <div className="h-px w-8 bg-[#d4af37]"></div>
             Visa Classes
-            <div className="w-8 h-[1px] bg-[#d4af37]"></div>
+            <div className="h-px w-8 bg-[#d4af37]"></div>
           </h4>
-          <h2 className="text-4xl font-bold text-white leading-tight">
+          <h2 className="mx-auto max-w-xl text-4xl font-bold leading-tight tracking-normal text-white lg:max-w-none">
             Explore Your Immigration Pathways
           </h2>
         </div>
 
         {/* 3D Card Stack Container */}
         <div 
-          onMouseEnter={() => setSectionHovered(true)}
+          onMouseEnter={() => isDesktopDeck && setSectionHovered(true)}
           onMouseLeave={() => {
             setSectionHovered(false);
             setHoveredIndex(null);
           }}
-          className="w-full max-w-3xl mx-auto h-[260px] sm:h-[340px] md:h-[400px] relative flex items-center justify-center mb-14"
+          className="relative mx-auto mb-8 grid w-full max-w-md grid-cols-1 gap-5 sm:max-w-2xl sm:grid-cols-2 lg:mb-14 lg:flex lg:h-[400px] lg:max-w-3xl lg:items-center lg:justify-center"
         >
           {visas.map((visa, i) => {
             // Symmetrical placements
@@ -142,21 +153,33 @@ export default function VisaDeck3D() {
 
             const isHovered = hoveredIndex === i;
             const isAnyHovered = hoveredIndex !== null;
-
-            return (
-              <motion.div
-                key={i}
-                onMouseEnter={() => setHoveredIndex(i)}
-                style={{ zIndex: isHovered ? 50 : baseZ }}
-                animate={{
+            const cardMotion = isDesktopDeck
+              ? {
                   x: isHovered ? 0 : fanX,
                   y: isHovered ? -50 : 0,
                   rotate: isHovered ? 0 : fanAngle,
                   scale: isHovered ? 1.08 : (isAnyHovered ? 0.9 : 1),
                   opacity: isHovered ? 1 : (isAnyHovered ? 0.35 : 1)
-                }}
-                transition={{ type: "spring", stiffness: 150, damping: 18 }}
-                className="absolute w-36 h-48 sm:w-44 sm:h-60 md:w-56 md:h-76 rounded-2xl border border-white/10 shadow-2xl overflow-hidden cursor-pointer origin-bottom bg-[#0d1726]"
+                }
+              : {
+                  x: 0,
+                  y: 0,
+                  rotate: 0,
+                  scale: 1,
+                  opacity: 1
+                };
+
+            return (
+              <motion.div
+                key={i}
+                onMouseEnter={() => isDesktopDeck && setHoveredIndex(i)}
+                style={{ zIndex: isHovered ? 50 : baseZ }}
+                initial={{ opacity: 0, y: 36, scale: 0.95 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, amount: 0.28 }}
+                animate={cardMotion}
+                transition={{ type: "spring", stiffness: 150, damping: 18, delay: isDesktopDeck ? 0 : i * 0.06 }}
+                className="relative h-[18rem] w-full origin-bottom cursor-pointer overflow-hidden rounded-2xl border border-white/10 bg-[#0d1726] shadow-2xl sm:h-[19rem] lg:absolute lg:h-76 lg:w-56"
               >
                 {/* Image Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/25 z-10" />

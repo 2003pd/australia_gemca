@@ -46,44 +46,87 @@ export default function HorizontalSection() {
     const ctx = gsap.context(() => {
       const track = trackRef.current;
       if (!track) return;
+      const media = gsap.matchMedia();
 
-      const totalScrollWidth = track.scrollWidth - window.innerWidth;
+      media.add("(min-width: 1024px)", () => {
+        const totalScrollWidth = track.scrollWidth - window.innerWidth;
 
-      // Pin and slide horizontally
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top",
-          end: () => `+=${track.scrollWidth}`,
-          scrub: true,
-          pin: true,
-          anticipatePin: 1,
-        },
-      });
+        // Pin and slide horizontally
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top top",
+            end: () => `+=${track.scrollWidth}`,
+            scrub: true,
+            pin: true,
+            anticipatePin: 1,
+          },
+        });
 
-      // Horizontal track translation
-      tl.to(track, {
-        x: -totalScrollWidth,
-        ease: "none",
-      }, 0);
+        // Horizontal track translation
+        tl.to(track, {
+          x: -totalScrollWidth,
+          ease: "none",
+        }, 0);
 
-      // Large background watermark letters move at a slower parallax rate
-      tl.fromTo(
-        titleBgRef.current,
-        { x: 100 },
-        { x: -300, ease: "none" },
-        0
-      );
-
-      // Add dynamic 3D rotation shifts to the cards during transition
-      gsap.utils.toArray(".horizontal-card").forEach((card: any) => {
+        // Large background watermark letters move at a slower parallax rate
         tl.fromTo(
-          card,
-          { rotateY: 15, scale: 0.95 },
-          { rotateY: -15, scale: 1.02, ease: "none" },
+          titleBgRef.current,
+          { x: 100 },
+          { x: -300, ease: "none" },
           0
         );
+
+        // Add dynamic 3D rotation shifts to the cards during transition
+        gsap.utils.toArray(".horizontal-card").forEach((card: any) => {
+          tl.fromTo(
+            card,
+            { rotateY: 15, scale: 0.95 },
+            { rotateY: -15, scale: 1.02, ease: "none" },
+            0
+          );
+        });
       });
+
+      media.add("(max-width: 1023px)", () => {
+        gsap.set(track, { clearProps: "transform" });
+        gsap.set(titleBgRef.current, { clearProps: "transform" });
+        gsap.fromTo(
+          titleBgRef.current,
+          { x: 36, opacity: 0 },
+          {
+            x: -36,
+            opacity: 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            },
+          }
+        );
+
+        gsap.fromTo(
+          ".horizontal-card",
+          { opacity: 0, y: 46, rotateY: 8, scale: 0.96 },
+          {
+            opacity: 1,
+            y: 0,
+            rotateY: 0,
+            scale: 1,
+            duration: 0.75,
+            stagger: 0.1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: track,
+              start: "top 82%",
+            },
+          }
+        );
+      });
+
+      return () => media.revert();
     }, containerRef);
 
     return () => ctx.revert();
@@ -93,12 +136,12 @@ export default function HorizontalSection() {
     <section
       id="horizontal"
       ref={containerRef}
-      className="relative w-full h-screen bg-[#1A1A1A] overflow-hidden flex items-center select-none"
+      className="relative flex min-h-screen w-full items-center overflow-hidden bg-[#1A1A1A] px-5 py-20 select-none sm:px-6 lg:h-screen lg:px-0 lg:py-0"
     >
       {/* Huge Background Watermark Typography */}
       <div
         ref={titleBgRef}
-        className="absolute top-1/2 -translate-y-1/2 left-0 text-[24vw] font-black text-white/5 tracking-tighter leading-none uppercase pointer-events-none z-0 whitespace-nowrap"
+        className="pointer-events-none absolute left-0 top-1/2 z-0 -translate-y-1/2 whitespace-nowrap text-[24vw] font-black uppercase leading-none tracking-normal text-white/5"
         style={{ fontFamily: "var(--font-serif, serif)" }}
       >
         Visa Knowledge Library
@@ -107,11 +150,11 @@ export default function HorizontalSection() {
       {/* Horizontal Slider Track */}
       <div
         ref={trackRef}
-        className="relative z-10 flex gap-12 px-24 items-center h-[70vh] w-max"
+        className="relative z-10 grid w-full grid-cols-1 items-stretch gap-5 sm:grid-cols-2 lg:flex lg:h-[70vh] lg:w-max lg:items-center lg:gap-12 lg:px-24"
         style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
       >
         {/* Intro Block Card */}
-        <div className="w-[30vw] max-w-[400px] flex flex-col justify-center text-left shrink-0 pr-8">
+        <div className="flex min-h-[280px] flex-col justify-center text-left sm:col-span-2 lg:w-[30vw] lg:max-w-[400px] lg:shrink-0 lg:pr-8">
           <span className="text-[#F5E9E6] text-[10px] tracking-[0.3em] uppercase font-bold block mb-4">
             Section 05 // Visa Categories
           </span>
@@ -130,7 +173,7 @@ export default function HorizontalSection() {
         {CARDS.map((card, i) => (
           <div
             key={i}
-            className={`horizontal-card shrink-0 w-[24vw] max-w-[320px] aspect-[3/4] bg-white/[0.03] backdrop-blur-md rounded-[2rem] border border-white/10 p-6 flex flex-col justify-between shadow-2xl transition-all duration-75 ${card.offsetY}`}
+            className={`horizontal-card flex aspect-[3/4] w-full flex-col justify-between rounded-[2rem] border border-white/10 bg-white/[0.03] p-5 shadow-2xl backdrop-blur-md transition-all duration-75 sm:p-6 lg:w-[24vw] lg:max-w-[320px] lg:shrink-0 ${card.offsetY}`}
             style={{ transformStyle: "preserve-3d" }}
           >
             <div className="flex justify-between items-center text-[10px] font-bold tracking-wider text-white/40">

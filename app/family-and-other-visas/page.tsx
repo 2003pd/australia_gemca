@@ -95,25 +95,25 @@ export default function FamilyAndOtherVisasPage() {
     <main className="relative z-[999] min-h-screen bg-[#f7f9fc] pb-20 text-[#0a1f44]">
       <SiteHeader />
 
-      <section className="relative overflow-hidden bg-[#07152b] px-5 pb-16 pt-32 text-white sm:px-6 lg:px-8 lg:pt-36">
+      <section className="relative min-h-screen overflow-hidden bg-[#07152b] px-5 pb-16 pt-32 text-white sm:px-6 lg:min-h-0 lg:px-8 lg:pt-36">
         <Image
           src="/family-other-visas-hero.png"
           alt="Family and visitor visa consultation for Australian migration planning"
           fill
           priority
-          className="absolute inset-0 object-cover object-center opacity-70"
+          className="absolute inset-0 object-contain object-top opacity-70 sm:object-cover sm:object-center"
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,21,43,0.96)_0%,rgba(7,21,43,0.82)_44%,rgba(7,21,43,0.28)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,21,43,0.98)_0%,rgba(7,21,43,0.9)_58%,rgba(7,21,43,0.48)_100%)] sm:bg-[linear-gradient(90deg,rgba(7,21,43,0.96)_0%,rgba(7,21,43,0.82)_44%,rgba(7,21,43,0.28)_100%)]" />
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#f7f9fc] to-transparent" />
 
-        <div className="relative mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.9fr_0.7fr] lg:items-end">
+        <div className="relative mx-auto grid min-h-[calc(100vh-8rem)] max-w-7xl gap-10 lg:min-h-0 lg:grid-cols-[0.9fr_0.7fr] lg:items-end">
           <div>
             <div className="mb-6 inline-flex items-center gap-3 rounded-full border border-white/14 bg-white/10 px-4 py-2 font-serif text-sm font-semibold italic tracking-normal text-[#f4d66b] backdrop-blur-xl">
               <ShieldCheck size={14} />
               Family & Other Visas
             </div>
-            <h1 className="max-w-4xl font-serif text-4xl font-semibold italic leading-[1.04] tracking-normal sm:text-5xl lg:text-7xl">
+            <h1 className="max-w-4xl font-serif text-[clamp(2.7rem,12vw,4rem)] font-semibold italic leading-[1.03] tracking-normal sm:text-5xl lg:text-7xl">
               Family, visit and next-step Australian pathways.
             </h1>
             <p className="mt-6 max-w-2xl text-base font-semibold leading-8 text-white/72">

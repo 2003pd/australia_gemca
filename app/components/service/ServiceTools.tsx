@@ -81,7 +81,7 @@ function SelectPill({
             key={`${label}-${option.label}`}
             type="button"
             onClick={() => onChange(option.value)}
-            className={`rounded-full border px-3 py-2 text-xs font-black transition ${
+            className={`min-h-10 rounded-full border px-3 py-2 text-xs font-black leading-none transition sm:text-sm ${
               value === option.value
                 ? "border-[#c9a227]/60 bg-[#fff7df] text-[#0a1f44]"
                 : "border-[#0a1f44]/10 bg-white text-[#536079] hover:border-[#2e5fa3]/25"
@@ -121,17 +121,17 @@ export default function ServiceTools() {
   }, [occupationQuery]);
 
   return (
-    <section id="migration-tools" className="mt-20 rounded-[34px] border border-[#0a1f44]/10 bg-white/86 p-5 shadow-[0_34px_100px_rgba(10,31,68,0.10)] backdrop-blur-xl sm:p-7 lg:p-8">
-      <div className="grid gap-6 lg:grid-cols-[0.76fr_1.24fr] lg:items-start">
-        <div className="rounded-[26px] bg-[#071b3f] p-6 text-white">
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#c9a227]/35 bg-[#c9a227]/10 px-4 py-2 text-[10px] font-black uppercase tracking-[0.18em] text-[#f1d170]">
+    <section id="migration-tools" className="mt-16 overflow-hidden rounded-[26px] border border-[#0a1f44]/10 bg-white/86 p-4 shadow-[0_34px_100px_rgba(10,31,68,0.10)] backdrop-blur-xl sm:mt-20 sm:rounded-[34px] sm:p-7 lg:p-8">
+      <div className="grid min-w-0 gap-5 xl:grid-cols-[0.62fr_1.38fr] xl:items-start">
+        <div className="rounded-[22px] bg-[#071b3f] p-5 text-white sm:rounded-[26px] sm:p-6">
+          <div className="mb-5 inline-flex max-w-full items-center gap-2 rounded-full border border-[#c9a227]/35 bg-[#c9a227]/10 px-3 py-2 text-[9px] font-black uppercase tracking-[0.16em] text-[#f1d170] sm:px-4 sm:text-[10px]">
             <ShieldCheck size={14} />
             Migration tools
           </div>
-          <h2 className="text-3xl font-black uppercase leading-tight">
+          <h2 className="text-[clamp(2rem,9vw,3rem)] font-black uppercase leading-tight xl:text-[2.55rem] 2xl:text-5xl">
             Check your PR position before booking.
           </h2>
-          <p className="mt-4 text-sm leading-7 text-white/64">
+          <p className="mt-4 text-sm leading-7 text-white/64 sm:text-base">
             Quick tools for points, basic eligibility and occupation matching. Use them as a guide before a full consultation.
           </p>
           <div className="mt-6 grid gap-3 text-xs font-bold text-white/70">
@@ -142,8 +142,8 @@ export default function ServiceTools() {
           </div>
         </div>
 
-        <div>
-          <div className="mb-5 flex flex-wrap gap-2">
+        <div className="min-w-0">
+          <div className="mb-5 grid grid-cols-1 gap-2 sm:grid-cols-3 xl:grid-cols-3">
             {[
               { key: "points", label: "PR Points Calculator", icon: Calculator },
               { key: "eligibility", label: "Eligibility Checker", icon: ClipboardCheck },
@@ -157,7 +157,7 @@ export default function ServiceTools() {
                   key={tool.key}
                   type="button"
                   onClick={() => setActiveTool(tool.key as typeof activeTool)}
-                  className={`inline-flex items-center gap-2 rounded-full border px-4 py-2.5 text-xs font-black uppercase tracking-[0.1em] transition ${
+                  className={`inline-flex min-h-12 min-w-0 items-center justify-center gap-2 rounded-full border px-3 py-2.5 text-center text-[11px] font-black uppercase tracking-[0.08em] transition sm:text-[10px] lg:text-xs xl:whitespace-nowrap ${
                     selected
                       ? "border-[#2e5fa3]/30 bg-[#eaf2fb] text-[#0a1f44]"
                       : "border-[#0a1f44]/10 bg-white text-[#66748a] hover:border-[#2e5fa3]/25"
@@ -171,17 +171,17 @@ export default function ServiceTools() {
           </div>
 
           {activeTool === "points" ? (
-            <div className="rounded-[26px] border border-[#0a1f44]/10 bg-[#f7f9fc] p-5">
+            <div className="rounded-[22px] border border-[#0a1f44]/10 bg-[#f7f9fc] p-4 sm:rounded-[26px] sm:p-5">
               <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <div>
+                <div className="min-w-0">
                   <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#2e5fa3]">PR Points Calculator</p>
-                  <h3 className="mt-1 text-2xl font-black uppercase text-[#0a1f44]">{totalPoints} estimated points</h3>
+                  <h3 className="mt-1 text-[clamp(1.55rem,7vw,2rem)] font-black uppercase leading-tight text-[#0a1f44]">{totalPoints} estimated points</h3>
                 </div>
-                <span className={`rounded-full px-4 py-2 text-xs font-black uppercase ${totalPoints >= 65 ? "bg-emerald-100 text-emerald-700" : "bg-[#fff7df] text-[#8a650d]"}`}>
+                <span className={`w-fit rounded-full px-4 py-2 text-xs font-black uppercase ${totalPoints >= 65 ? "bg-emerald-100 text-emerald-700" : "bg-[#fff7df] text-[#8a650d]"}`}>
                   {totalPoints >= 65 ? "65 threshold met" : `${65 - totalPoints} more needed`}
                 </span>
               </div>
-              <div className="grid gap-5 md:grid-cols-2">
+              <div className="grid gap-5 lg:grid-cols-2">
                 <SelectPill label="Age" value={age} options={pointOptions.age} onChange={setAge} />
                 <SelectPill label="English" value={english} options={pointOptions.english} onChange={setEnglish} />
                 <SelectPill label="Education" value={education} options={pointOptions.education} onChange={setEducation} />
@@ -206,11 +206,11 @@ export default function ServiceTools() {
           ) : null}
 
           {activeTool === "eligibility" ? (
-            <div className="rounded-[26px] border border-[#0a1f44]/10 bg-[#f7f9fc] p-5">
+            <div className="rounded-[22px] border border-[#0a1f44]/10 bg-[#f7f9fc] p-4 sm:rounded-[26px] sm:p-5">
               <div className="mb-5 flex items-center justify-between gap-4">
-                <div>
+                <div className="min-w-0">
                   <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#2e5fa3]">Eligibility Checker</p>
-                  <h3 className="mt-1 text-2xl font-black uppercase text-[#0a1f44]">{completedChecks} of {eligibilityChecks.length} checks ready</h3>
+                  <h3 className="mt-1 text-[clamp(1.45rem,6vw,2rem)] font-black uppercase leading-tight text-[#0a1f44]">{completedChecks} of {eligibilityChecks.length} checks ready</h3>
                 </div>
                 <BadgeCheck className="text-[#c9a227]" size={30} />
               </div>
@@ -238,11 +238,11 @@ export default function ServiceTools() {
           ) : null}
 
           {activeTool === "occupations" ? (
-            <div className="rounded-[26px] border border-[#0a1f44]/10 bg-[#f7f9fc] p-5">
+            <div className="rounded-[22px] border border-[#0a1f44]/10 bg-[#f7f9fc] p-4 sm:rounded-[26px] sm:p-5">
               <div className="mb-5 grid gap-4 md:grid-cols-[1fr_0.8fr] md:items-end">
-                <div>
+                <div className="min-w-0">
                   <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#2e5fa3]">Occupation List</p>
-                  <h3 className="mt-1 text-2xl font-black uppercase text-[#0a1f44]">Search common skilled occupations</h3>
+                  <h3 className="mt-1 text-[clamp(1.45rem,6vw,2rem)] font-black uppercase leading-tight text-[#0a1f44]">Search common skilled occupations</h3>
                 </div>
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-[#66748a]" size={16} />

@@ -61,7 +61,7 @@ export default function ZoomSection() {
       {/* Boxed image card that expands */}
       <div
         ref={wrapperRef}
-        className="w-full h-full p-12 md:p-16 lg:p-24 transition-all duration-75"
+        className="h-full w-full p-5 transition-all duration-75 sm:p-8 md:p-16 lg:p-24"
       >
         <div
           className="relative w-full h-full overflow-hidden rounded-[2.5rem] bg-[#2A2A2A] shadow-2xl transition-all duration-75"
@@ -80,13 +80,13 @@ export default function ZoomSection() {
           {/* Centered Typography Overlay */}
           <div
             ref={textRef}
-            className="absolute bottom-16 left-12 md:left-20 z-10 max-w-2xl text-left"
+            className="absolute bottom-8 left-5 right-5 z-10 max-w-2xl text-left sm:bottom-12 sm:left-8 sm:right-8 md:bottom-16 md:left-20"
           >
             <span className="text-[#FAF6F0]/50 text-xs tracking-[0.3em] uppercase block mb-3">
               Section 03 // Trust Statement
             </span>
             <h3
-              className="text-4xl md:text-6xl font-bold text-white uppercase leading-none tracking-tight"
+              className="text-3xl font-bold uppercase leading-none tracking-normal text-white sm:text-4xl md:text-6xl"
               style={{ fontFamily: "var(--font-serif, serif)" }}
             >
               Knowledge first. Guidance second.

@@ -117,13 +117,13 @@ export default function SiteFooter() {
             </div>
           </div>
 
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-8 lg:grid-cols-4">
             {footerColumns.map((column) => (
               <div key={column.title}>
-                <h3 className="mb-5 text-xs font-black uppercase tracking-[0.24em] text-[#d4af37]">
+                <h3 className="mb-4 text-[11px] font-black uppercase tracking-[0.24em] text-[#d4af37] sm:mb-5 sm:text-xs">
                   {column.title}
                 </h3>
-                <nav className="grid gap-3 text-sm font-bold text-white">
+                <nav className="grid gap-3 text-sm font-bold leading-6 text-white sm:leading-normal">
                   {column.links.map((link) => (
                     <Link key={`${column.title}-${link.label}-${link.href}`} href={link.href} className="transition-colors hover:text-white">
                       {link.label}

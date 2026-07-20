@@ -58,17 +58,17 @@ export default function UpdatesSection() {
     <section
       id="updates"
       ref={containerRef}
-      className="relative w-full min-h-screen bg-[#F5E9E6] py-32 flex flex-col justify-center overflow-hidden select-none"
+      className="relative flex min-h-screen w-full flex-col justify-center overflow-hidden bg-[#F5E9E6] py-20 select-none sm:py-24 lg:py-32"
     >
-      <div className="container mx-auto px-12 lg:px-20 max-w-7xl">
+      <div className="container mx-auto max-w-7xl px-5 sm:px-6 lg:px-20">
         
         {/* Header */}
-        <div className="mb-24 text-left max-w-xl">
+        <div className="mb-14 max-w-xl text-left sm:mb-20 lg:mb-24">
           <span className="text-[#2E5FA3] text-[10px] tracking-[0.3em] uppercase font-bold block mb-4">
             Section 08 // Latest Knowledge
           </span>
           <h2
-            className="text-4xl md:text-6xl font-bold text-[#1A1A1A] leading-tight tracking-tight uppercase"
+            className="text-4xl font-bold uppercase leading-tight tracking-normal text-[#1A1A1A] md:text-6xl"
             style={{ fontFamily: "var(--font-serif, serif)" }}
           >
             Knowledge &amp;<br />Guides
@@ -76,14 +76,14 @@ export default function UpdatesSection() {
         </div>
 
         {/* Updates Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {UPDATES.map((item, i) => (
             <div
               key={i}
               className="update-card flex flex-col items-start text-left cursor-pointer group"
             >
               {/* Image with hover zoom */}
-              <div className="relative w-full aspect-[4/5] rounded-3xl overflow-hidden shadow-xl bg-[#EAE0DC] mb-8">
+              <div className="relative mb-6 aspect-[4/5] w-full overflow-hidden rounded-3xl bg-[#EAE0DC] shadow-xl sm:mb-8">
                 <img
                   src={item.src}
                   alt={item.title}

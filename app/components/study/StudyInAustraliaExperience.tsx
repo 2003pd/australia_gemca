@@ -296,7 +296,7 @@ function StudyScene() {
 
 function StudyHeroCanvas() {
   return (
-    <div className="pointer-events-none absolute inset-0 z-0">
+    <div className="pointer-events-none absolute inset-0 z-0 opacity-55 sm:opacity-75 lg:opacity-100">
       <Canvas camera={{ position: [0, 0, 5.8], fov: 42 }} dpr={[1, 1.6]}>
         <StudyScene />
       </Canvas>
@@ -312,14 +312,14 @@ export default function StudyInAustraliaExperience() {
         <div className="absolute inset-0 z-[1] bg-[linear-gradient(90deg,rgba(7,17,31,0.98)_0%,rgba(7,17,31,0.82)_42%,rgba(7,17,31,0.38)_100%)]" />
         <div className="absolute inset-0 z-[1] bg-[linear-gradient(to_right,rgba(255,255,255,0.055)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.045)_1px,transparent_1px)] bg-[size:54px_54px] opacity-45" />
 
-        <div className="relative z-[2] mx-auto grid min-h-[680px] max-w-7xl items-center gap-10 px-6 pb-14 pt-32 lg:min-h-[660px] lg:grid-cols-[0.98fr_0.72fr] lg:px-8">
-          <div>
+        <div className="relative z-[2] mx-auto grid min-h-screen max-w-7xl items-center gap-8 px-5 pb-12 pt-36 sm:px-6 sm:pt-32 lg:min-h-[660px] lg:grid-cols-[0.98fr_0.72fr] lg:gap-10 lg:px-8">
+          <div className="min-w-0">
             <motion.div
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               style={{ opacity: 1 }}
               transition={{ duration: 0.7 }}
-              className="mb-5 inline-flex items-center gap-3 rounded-full border border-white/12 bg-white/[0.06] px-4 py-2 text-[10px] font-black uppercase tracking-[0.22em] text-[#d4af37] backdrop-blur-xl"
+              className="mb-4 inline-flex max-w-full items-center gap-3 rounded-full border border-white/12 bg-white/[0.06] px-4 py-2 text-[10px] font-black uppercase tracking-[0.18em] text-[#d4af37] backdrop-blur-xl sm:mb-5 sm:tracking-[0.22em]"
             >
               <Sparkle size={15} />
               Study in Australia
@@ -329,7 +329,7 @@ export default function StudyInAustraliaExperience() {
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               style={{ opacity: 1 }}
               transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-              className="max-w-4xl font-serif text-4xl font-semibold italic leading-[1.06] tracking-normal sm:text-5xl"
+              className="max-w-4xl font-serif text-[clamp(2.6rem,12vw,4rem)] font-semibold italic leading-[1.02] tracking-normal sm:text-5xl"
             >
               Build your Australian study pathway.
             </motion.h1>
@@ -338,7 +338,7 @@ export default function StudyInAustraliaExperience() {
               animate={{ opacity: 1, y: 0 }}
               style={{ opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.75 }}
-              className="mt-6 max-w-2xl text-base leading-7 text-white/68"
+              className="mt-5 max-w-2xl text-sm leading-7 text-white/68 sm:mt-6 sm:text-base"
             >
               Course selection, admissions, Genuine Student preparation, student visa strategy, and arrival planning
               in one premium advisory experience.
@@ -348,20 +348,20 @@ export default function StudyInAustraliaExperience() {
               animate={{ opacity: 1, y: 0 }}
               style={{ opacity: 1 }}
               transition={{ delay: 0.32, duration: 0.75 }}
-              className="mt-8 flex flex-wrap gap-3"
+              className="mt-7 grid gap-3 sm:mt-8 sm:flex sm:flex-wrap"
             >
-              <Link href="mailto:ansar@gemca.com.au" className="inline-flex min-h-11 items-center gap-3 rounded-full bg-[#d4af37] px-6 text-[11px] font-black uppercase tracking-[0.16em] text-[#07111f] shadow-[0_24px_80px_rgba(212,175,55,0.24)] transition hover:bg-white">
+              <Link href="mailto:ansar@gemca.com.au" className="inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-[#d4af37] px-5 text-[11px] font-black uppercase tracking-[0.14em] text-[#07111f] shadow-[0_24px_80px_rgba(212,175,55,0.24)] transition hover:bg-white sm:min-h-11 sm:px-6 sm:tracking-[0.16em]">
                 Start Counselling
                 <ArrowRight size={15} />
               </Link>
-              <a href="#pathways" className="inline-flex min-h-11 items-center gap-3 rounded-full border border-white/14 bg-white/[0.05] px-6 text-[11px] font-black uppercase tracking-[0.16em] text-white backdrop-blur-xl transition hover:border-[#d4af37] hover:text-[#d4af37]">
+              <a href="#pathways" className="inline-flex min-h-12 items-center justify-center gap-3 rounded-full border border-white/14 bg-white/[0.05] px-5 text-[11px] font-black uppercase tracking-[0.14em] text-white backdrop-blur-xl transition hover:border-[#d4af37] hover:text-[#d4af37] sm:min-h-11 sm:px-6 sm:tracking-[0.16em]">
                 Explore Pathways
                 <GraduationCap size={16} />
               </a>
             </motion.div>
-            <div className="mt-8 grid max-w-3xl gap-3 sm:grid-cols-3">
+            <div className="mt-7 grid max-w-3xl gap-3 sm:mt-8 sm:grid-cols-3">
               {heroImages.map((image) => (
-                <div key={image.label} className="group relative h-24 overflow-hidden rounded-2xl border border-white/12 bg-white/[0.06]">
+                <div key={image.label} className="group relative h-24 overflow-hidden rounded-2xl border border-white/12 bg-white/[0.06] sm:h-24">
                   <img
                     src={image.src}
                     alt={image.alt}
@@ -381,16 +381,16 @@ export default function StudyInAustraliaExperience() {
             animate={{ opacity: 1, x: 0 }}
             style={{ opacity: 1 }}
             transition={{ delay: 0.45, duration: 0.8 }}
-            className="rounded-[26px] border border-white/12 bg-white/[0.075] p-5 shadow-[0_26px_90px_rgba(0,0,0,0.22)] backdrop-blur-2xl"
+            className="rounded-[24px] border border-white/12 bg-white/[0.075] p-4 shadow-[0_26px_90px_rgba(0,0,0,0.22)] backdrop-blur-2xl sm:rounded-[26px] sm:p-5"
           >
-            <p className="text-xs font-black uppercase tracking-[0.24em] text-[#d4af37]">Premium planner</p>
-            <div className="mt-5 grid gap-3">
+            <p className="text-[11px] font-black uppercase tracking-[0.2em] text-[#d4af37] sm:text-xs sm:tracking-[0.24em]">Premium planner</p>
+            <div className="mt-4 grid gap-3 sm:mt-5">
               {[
                 ["Course fit", "Study options matched to your profile"],
                 ["Visa readiness", "Evidence strategy before lodgement"],
                 ["Future plan", "Career and pathway logic made clear"],
               ].map(([label, text]) => (
-                <div key={label} className="flex gap-4 rounded-2xl border border-white/10 bg-[#07111f]/50 p-4">
+                <div key={label} className="flex gap-3 rounded-2xl border border-white/10 bg-[#07111f]/50 p-3 sm:gap-4 sm:p-4">
                   <BadgeCheck className="mt-1 shrink-0 text-[#d4af37]" size={21} />
                   <div>
                     <h2 className="text-sm font-black uppercase tracking-[0.1em]">{label}</h2>

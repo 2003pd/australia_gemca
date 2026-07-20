@@ -83,7 +83,7 @@ export default function Hero3D() {
           transition={{ delay: 0.38, duration: 0.95, ease: [0.22, 1, 0.36, 1] }}
           onMouseMove={handleImageMouseMove}
           onMouseLeave={() => setLens((current) => ({ ...current, visible: false }))}
-          className="relative hidden min-h-[520px] cursor-none overflow-hidden rounded-[34px] border border-white/10 bg-white/[0.04] shadow-[0_34px_120px_rgba(0,0,0,0.36)] backdrop-blur-xl lg:block"
+          className="relative min-h-[300px] cursor-auto overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.04] shadow-[0_34px_120px_rgba(0,0,0,0.36)] backdrop-blur-xl sm:min-h-[420px] lg:min-h-[520px] lg:cursor-none"
         >
           <div
             className="absolute inset-0 scale-[1.03] bg-cover bg-center"

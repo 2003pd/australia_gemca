@@ -88,7 +88,7 @@ export default function FaqSection() {
             <MessageCircleQuestion size={15} />
             FAQ
           </div>
-          <h2 className="font-serif text-4xl font-semibold italic leading-tight text-white md:text-6xl">
+          <h2 className="font-serif text-4xl font-semibold italic leading-tight tracking-normal text-white md:text-6xl">
             Questions before your Australian journey starts.
           </h2>
           <p className="mt-6 max-w-xl text-base leading-8 text-white/58">
@@ -107,7 +107,7 @@ export default function FaqSection() {
                   onClick={() => setActiveIndex(isOpen ? -1 : index)}
                   className="flex w-full items-center justify-between gap-5 px-5 py-5 text-left sm:px-6"
                 >
-                  <span className="text-base font-black uppercase leading-6 tracking-[0.04em] text-white sm:text-lg">
+                  <span className="text-base font-black uppercase leading-6 tracking-normal text-white sm:text-lg">
                     {item.question}
                   </span>
                   <ChevronDown className={`shrink-0 text-[#d4af37] transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`} size={22} />

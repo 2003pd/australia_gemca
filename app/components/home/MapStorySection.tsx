@@ -75,14 +75,14 @@ export default function MapStorySection() {
         </svg>
       </div>
 
-      <div className="container relative z-10 mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 px-6 lg:grid-cols-2 lg:px-20">
+      <div className="container relative z-10 mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-5 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-20">
         <div className="flex max-w-xl flex-col items-start">
           <span className="map-reveal mb-4 block text-[10px] font-bold uppercase tracking-[0.3em] text-[#2E5FA3]">
             Williams Landing // Melbourne West
           </span>
 
           <h2
-            className="map-reveal mb-8 text-5xl font-bold uppercase leading-tight tracking-tight text-[#1A1A1A] md:text-7xl"
+            className="map-reveal mb-8 text-4xl font-bold uppercase leading-tight tracking-normal text-[#1A1A1A] sm:text-5xl md:text-7xl"
             style={{ fontFamily: "var(--font-serif, serif)" }}
           >
             Every pathway<br />
@@ -103,7 +103,7 @@ export default function MapStorySection() {
           </div>
         </div>
 
-        <div className="relative flex h-[55vh] w-full items-center justify-center">
+        <div className="relative flex min-h-[460px] w-full items-center justify-center sm:h-[55vh]">
           <div ref={floatImgRef} className="aspect-[3/4] w-full max-w-[400px] overflow-hidden rounded-3xl bg-[#EAE0DC] shadow-2xl">
             <img
               src="https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?q=80&w=800"
@@ -112,12 +112,12 @@ export default function MapStorySection() {
             />
           </div>
 
-          <div className="absolute right-[10%] top-[10%] flex flex-col gap-1 rounded-xl border border-[#F5E9E6] bg-white/80 p-4 text-[10px] font-bold tracking-wider text-[#1A1A1A]/80 shadow-lg backdrop-blur-md pointer-events-none">
+          <div className="absolute right-0 top-[8%] flex max-w-[180px] flex-col gap-1 rounded-xl border border-[#F5E9E6] bg-white/80 p-3 text-[10px] font-bold tracking-wider text-[#1A1A1A]/80 shadow-lg backdrop-blur-md pointer-events-none sm:right-[10%] sm:p-4">
             <div>ABN 96 695 178 744</div>
             <div>01 // VERIFIED BUSINESS</div>
           </div>
 
-          <div className="absolute bottom-[8%] left-[8%] flex flex-col gap-1 rounded-xl border border-[#F5E9E6] bg-white/80 p-4 text-[10px] font-bold tracking-wider text-[#1A1A1A]/80 shadow-lg backdrop-blur-md pointer-events-none">
+          <div className="absolute bottom-[8%] left-0 flex max-w-[180px] flex-col gap-1 rounded-xl border border-[#F5E9E6] bg-white/80 p-3 text-[10px] font-bold tracking-wider text-[#1A1A1A]/80 shadow-lg backdrop-blur-md pointer-events-none sm:left-[8%] sm:p-4">
             <div>10+ NATIONALITIES</div>
             <div>02 // CLIENT CONTEXT</div>
           </div>

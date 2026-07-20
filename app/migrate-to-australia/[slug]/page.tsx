@@ -164,19 +164,19 @@ export default async function VisaSubclassDetailPage({ params }: PageProps) {
       <SiteHeader />
 
       {/* Distinct Header HERO section */}
-      <section className={`relative overflow-hidden px-6 pb-12 pt-32 lg:px-8 ${visual.hero}`}>
+      <section className={`relative overflow-hidden px-5 pb-12 pt-32 sm:px-6 lg:px-8 ${visual.hero}`}>
         {visual.heroBackground ? (
           <Image
             src={visual.heroBackground}
             alt={`${visa.title} hero background`}
             fill
             priority
-            className="absolute inset-0 object-cover"
+            className="absolute inset-0 object-contain object-top opacity-80 sm:object-cover sm:object-center sm:opacity-100"
             sizes="100vw"
           />
         ) : null}
         {visual.heroBackground ? (
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,21,43,0.96)_0%,rgba(7,21,43,0.76)_42%,rgba(7,21,43,0.18)_100%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,21,43,0.98)_0%,rgba(7,21,43,0.9)_58%,rgba(7,21,43,0.5)_100%)] sm:bg-[linear-gradient(90deg,rgba(7,21,43,0.96)_0%,rgba(7,21,43,0.76)_42%,rgba(7,21,43,0.18)_100%)]" />
         ) : null}
         <div className={`absolute inset-0 ${visual.heroGrid} bg-[size:40px_40px] opacity-60`} />
         <div className={`absolute -left-12 bottom-0 h-56 w-56 rounded-full ${visual.glow} blur-[90px]`} />

@@ -50,71 +50,97 @@ export default function StackShowcase() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const cards = gsap.utils.toArray<HTMLElement>(".stack-card");
-      if (cards.length === 0) return;
+      const media = gsap.matchMedia();
 
-      gsap.set(cards, {
-        yPercent: 115,
-        scale: 0.92,
-        opacity: 0,
-        rotationX: -10,
-        z: -80,
-      });
+      media.add("(min-width: 1024px)", () => {
+        const cards = gsap.utils.toArray<HTMLElement>(".stack-card");
+        if (cards.length === 0) return;
 
-      gsap.set(cards[0], {
-        yPercent: 0,
-        scale: 1,
-        opacity: 1,
-        rotationX: 0,
-        z: 0,
-      });
+        gsap.set(cards, {
+          yPercent: 115,
+          scale: 0.92,
+          opacity: 0,
+          rotationX: -10,
+          z: -80,
+        });
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top",
-          end: () => `+=${window.innerHeight * (cards.length - 1)}`,
-          scrub: true,
-          pin: true,
-          invalidateOnRefresh: true,
-          anticipatePin: 1,
-        },
-      });
+        gsap.set(cards[0], {
+          yPercent: 0,
+          scale: 1,
+          opacity: 1,
+          rotationX: 0,
+          z: 0,
+        });
 
-      cards.forEach((card, index) => {
-        gsap.set(card, { zIndex: cards.length + index });
-
-        if (index === 0) return;
-
-        const previousCard = cards[index - 1];
-        const time = index - 1;
-
-        tl.to(
-          previousCard,
-          {
-            yPercent: -18,
-            scale: 0.84,
-            opacity: 0.22,
-            rotationX: 8,
-            z: -140,
-            ease: "none",
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top top",
+            end: () => `+=${window.innerHeight * (cards.length - 1)}`,
+            scrub: true,
+            pin: true,
+            invalidateOnRefresh: true,
+            anticipatePin: 1,
           },
-          time
-        ).to(
-          card,
+        });
+
+        cards.forEach((card, index) => {
+          gsap.set(card, { zIndex: cards.length + index });
+
+          if (index === 0) return;
+
+          const previousCard = cards[index - 1];
+          const time = index - 1;
+
+          tl.to(
+            previousCard,
+            {
+              yPercent: -18,
+              scale: 0.84,
+              opacity: 0.22,
+              rotationX: 8,
+              z: -140,
+              ease: "none",
+            },
+            time
+          ).to(
+            card,
+            {
+              yPercent: 0,
+              scale: 1,
+              opacity: 1,
+              rotationX: 0,
+              z: 0,
+              ease: "none",
+            },
+            time
+          );
+        });
+
+        ScrollTrigger.refresh();
+      });
+
+      media.add("(max-width: 1023px)", () => {
+        gsap.fromTo(
+          ".stack-card",
+          { opacity: 0, y: 56, scale: 0.94, rotationX: -5 },
           {
-            yPercent: 0,
-            scale: 1,
             opacity: 1,
+            y: 0,
+            scale: 1,
             rotationX: 0,
-            z: 0,
-            ease: "none",
-          },
-          time
+            duration: 0.78,
+            stagger: 0.1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: cardContainerRef.current,
+              start: "top 82%",
+            },
+          }
         );
       });
 
-      ScrollTrigger.refresh();
+      return () => media.revert();
     }, containerRef);
 
     return () => ctx.revert();
@@ -124,10 +150,10 @@ export default function StackShowcase() {
     <section
       id="stack-showcase"
       ref={containerRef}
-      className="relative w-full h-screen bg-[#F5E9E6] overflow-hidden flex flex-col justify-between py-16 select-none"
+      className="relative flex min-h-screen w-full flex-col justify-between overflow-hidden bg-[#F5E9E6] px-5 py-16 select-none sm:px-6 lg:h-screen lg:px-0"
     >
       {/* Title */}
-      <div className="container mx-auto px-12 z-20 text-center">
+      <div className="container z-20 mx-auto text-center lg:px-12">
         <span className="text-[#2E5FA3] text-[10px] tracking-[0.3em] uppercase font-bold block mb-4">
           Section 06 // Service Hubs
         </span>
@@ -142,13 +168,13 @@ export default function StackShowcase() {
       {/* 3D Stacking Container */}
       <div
         ref={cardContainerRef}
-        className="relative flex-1 w-full flex items-center justify-center"
+        className="relative mt-10 grid w-full grid-cols-1 gap-5 sm:grid-cols-2 lg:mt-0 lg:flex lg:flex-1 lg:items-center lg:justify-center"
         style={{ perspective: "1200px", transformStyle: "preserve-3d" }}
       >
         {CARDS.map((card, i) => (
           <div
             key={i}
-            className="stack-card absolute w-[80vw] max-w-[420px] aspect-[3/4] bg-white rounded-[2.5rem] shadow-2xl border border-[#FAF6F0] p-8 flex flex-col justify-between"
+            className="stack-card relative flex aspect-[3/4] w-full flex-col justify-between rounded-[2rem] border border-[#FAF6F0] bg-white p-5 shadow-2xl sm:p-6 lg:absolute lg:w-[80vw] lg:max-w-[420px] lg:rounded-[2.5rem] lg:p-8"
             style={{ transformStyle: "preserve-3d" }}
           >
             <div className="flex justify-between items-center text-[10px] font-bold tracking-wider text-[#1A1A1A]/40">
@@ -181,7 +207,7 @@ export default function StackShowcase() {
       </div>
 
       {/* Footer details */}
-      <div className="container mx-auto px-12 z-20 flex justify-between items-center text-[#1A1A1A]/30 text-[10px] tracking-widest uppercase">
+      <div className="container z-20 mx-auto mt-10 flex items-center justify-between gap-5 text-[10px] uppercase tracking-widest text-[#1A1A1A]/30 lg:mt-0 lg:px-12">
         <div>Education first</div>
         <div>Consultation second</div>
       </div>
